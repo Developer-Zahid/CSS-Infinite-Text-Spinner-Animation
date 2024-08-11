@@ -8,9 +8,9 @@
         { "src": "./android-chrome-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
         { "src": "./android-chrome-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
     ],
-    "id": "./",
-    "start_url": "./",
-    "scope": "./",
+    "id": "https://developer-zahid.github.io/CSS-Infinite-Text-Spinner-Animation/",
+    "start_url": "https://developer-zahid.github.io/CSS-Infinite-Text-Spinner-Animation/",
+    "scope": "https://developer-zahid.github.io/CSS-Infinite-Text-Spinner-Animation/",
     "theme_color": "#5546ff",
     "background_color": "#5546ff",
     "display_override": ["window-controls-overlay", "fullscreen", "minimal-ui"],
