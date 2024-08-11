@@ -12,7 +12,7 @@
     "start_url": "./",
     "scope": "./",
     "theme_color": "#5546ff",
-    "background_color": "#ffffff",
+    "background_color": "#5546ff",
     "display_override": ["window-controls-overlay", "fullscreen", "minimal-ui"],
     "display": "standalone"
 }
