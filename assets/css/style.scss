@@ -1,15 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 :root{
-    --text-color: #1d1d1d;
-    --bg-color: #ffffff;
-    color-scheme: light dark;
+    --v1-text: #ffffff;
+    --v1-bg: #5546ff;
+    --v1-stroke: #1c1c1c;
+
+    --v2-text: #010101;
+    --v2-bg: #bfff0a;
+    --v2-stroke: #ffffff;
+    
+    --v3-text: #ffffff;
+    --v3-bg: #010101;
+    --v3-stroke: #6f6f6f;
+
+    --text-color: var(--v1-text);
+    --bg-color: var(--v1-bg);
+    --stroke-color: var(--v1-stroke);
+    
+    --font-family: "Anton", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root{
-        --text-color: #E2E2B6;
-        --bg-color: #222831;
+@supports selector(:has([value="v2"]:checked)) {
+    :root:has([value="v2"]:checked){
+        --text-color: var(--v2-text);
+        --bg-color: var(--v2-bg);
+        --stroke-color: var(--v2-stroke);
+    }
+    :root:has([value="v3"]:checked){
+        --text-color: var(--v3-text);
+        --bg-color: var(--v3-bg);
+        --stroke-color: var(--v3-stroke);
     }
 }
 
@@ -22,18 +42,68 @@
 
 html{
     background-color: var(--bg-color);
+    transition: background-color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 body{
     color: var(--text-color);
-    font-family: "Inter", sans-serif;
-    font-weight: 700;
+    font-family: var(--font-family);
+    font-weight: 400;
+}
+
+/* For Theme Toggler */
+.theme{
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    background-color: #ffffff;
+    padding: 0.8em 1em;
+    font-size: clamp(0.75rem, 1vw, 1rem);
+    border-radius: 10em;
+
+    @supports not selector(:has([value="v2"]:checked)) {
+        display: none;
+    }
+
+    &__toggler{
+        display: block;
+        width: 2em;
+        aspect-ratio: 1 / 1;
+        border-radius: 50em;
+        border: 2px solid transparent;
+        background-color: currentColor;
+        cursor: pointer;
+        appearance: none;
+
+        &:checked{
+            border-color: #000000;
+        }
+        &[value="v1"]{
+            background-color: var(--v1-bg);
+        }
+        &[value="v2"]{
+            background-color: var(--v2-bg);
+        }
+        &[value="v3"]{
+            background-color: var(--v3-bg);
+            &:checked{
+                border-color: var(--v1-bg);
+            }
+        }
+        
+    }
 }
 
 .header{
     display: grid;
     place-items: center;
     min-height: 100vh;
+    min-height: 100svh;
+    overflow: clip;
 }
 
 .slider{
@@ -45,13 +115,16 @@ body{
 
     text-align: center;
     list-style-type: none;
-    font-size: clamp(1.5rem, 5vw, 6rem);
+    font-size: clamp(2rem, 7vw, 8rem);
     height: var(--_height);
-    overflow: hidden;
+    overflow-y: clip;
 
     &__slide{
+        display: flex;
+        justify-content: center;
         line-height: var(--_height);
         perspective: 10em;
+        text-transform: uppercase;
         
         &:first-of-type{
             animation: slideAnimation calc((var(--_duration) * var(--_total-slides))) steps(var(--_total-slides), jump-end) infinite;
@@ -70,6 +143,8 @@ body{
             display: inline-block;
             opacity: 0;
             transform-style: preserve-3d;
+            -webkit-text-stroke: 0.016em var(--stroke-color);
+            text-shadow: 0.039em 0.039em var(--stroke-color);
             animation: characterAnimation var(--_duration) var(--_timing-function) infinite;
             animation-delay: calc(var(--i) * var(--_stagger));
 
